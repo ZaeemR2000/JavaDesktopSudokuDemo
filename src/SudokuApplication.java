@@ -1,19 +1,25 @@
+import buildlogic.SudokuBuildLogic;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import userinterface.UserInterfaceImpl;
+
 import java.io.IOException;
 
-public class SudokuApplication extends Application{
+/**
+ * This class is the Root Container (the thing which attends to all of the primary objects which must communicate when
+ * the program is running (a running program is called a "process").
+ */
+public class SudokuApplication extends Application {
+    private UserInterfaceImpl uiImpl;
 
-    private IUserInterfaceContact.View uiImpl;
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        //Get SudokuGame object for a new game
+        uiImpl = new UserInterfaceImpl(primaryStage);
 
-    public void start(Stage primaryStage) throws Exception{
-        uiImpl = new IUserInterfaceContact(primaryStage);
-        try{
+        try {
             SudokuBuildLogic.build(uiImpl);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             throw e;
         }
